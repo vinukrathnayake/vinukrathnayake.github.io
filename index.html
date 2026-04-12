@@ -1,0 +1,1312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vinuk Rathnayake — Database Administrator & Data Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #050d14;
+    --bg2: #0a1628;
+    --bg3: #0f1f35;
+    --teal: #0ef0c8;
+    --teal2: #07c4a0;
+    --teal-dim: rgba(14,240,200,0.12);
+    --teal-glow: rgba(14,240,200,0.06);
+    --navy: #1b2a4a;
+    --text: #e2eaf4;
+    --muted: #6a8aaa;
+    --border: rgba(14,240,200,0.15);
+    --card: rgba(10,22,40,0.8);
+    --mono: 'JetBrains Mono', monospace;
+    --sans: 'Syne', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 14px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* GRID OVERLAY */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(14,240,200,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(14,240,200,0.025) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* SCANLINE EFFECT */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.03) 2px,
+      rgba(0,0,0,0.03) 4px
+    );
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2.5rem;
+    background: rgba(5,13,20,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: var(--sans);
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: var(--teal);
+    letter-spacing: -0.02em;
+    text-decoration: none;
+  }
+
+  .nav-logo span { color: var(--text); }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--teal); }
+
+  /* SECTIONS */
+  section {
+    position: relative;
+    z-index: 1;
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  /* ─── HERO ─── */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 6rem 0 4rem;
+  }
+
+  .hero-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--teal);
+    border: 1px solid var(--border);
+    padding: 0.35rem 0.75rem;
+    border-radius: 2px;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-tag::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--teal);
+    border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  .hero-name {
+    font-family: var(--sans);
+    font-size: clamp(2.8rem, 5vw, 4.2rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.5rem;
+    color: var(--text);
+  }
+
+  .hero-name em {
+    font-style: normal;
+    color: var(--teal);
+    display: block;
+  }
+
+  .hero-role {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.05em;
+  }
+
+  .hero-desc {
+    color: rgba(226,234,244,0.7);
+    font-size: 0.82rem;
+    line-height: 1.8;
+    margin-bottom: 2rem;
+    max-width: 480px;
+  }
+
+  .hero-ctas {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--teal);
+    color: var(--bg);
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+    clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+  }
+
+  .btn-primary:hover {
+    background: var(--teal2);
+    transform: translateY(-1px);
+  }
+
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: transparent;
+    color: var(--teal);
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.75rem 1.5rem;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+    clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+  }
+
+  .btn-outline:hover {
+    border-color: var(--teal);
+    background: var(--teal-dim);
+  }
+
+  /* TERMINAL WIDGET */
+  .hero-terminal {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 0 60px rgba(14,240,200,0.08);
+  }
+
+  .terminal-bar {
+    background: var(--bg3);
+    padding: 0.6rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .dot-r { background: #ff5f56; }
+  .dot-y { background: #ffbd2e; }
+  .dot-g { background: #27c93f; }
+
+  .terminal-filename {
+    margin-left: auto;
+    font-size: 0.7rem;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+
+  .terminal-body {
+    padding: 1.5rem;
+    font-size: 0.78rem;
+    line-height: 2;
+  }
+
+  .t-comment { color: #3d6080; }
+  .t-key { color: #7ab8e0; }
+  .t-str { color: var(--teal); }
+  .t-num { color: #f9ca74; }
+  .t-arr { color: var(--muted); }
+  .t-bool { color: #ff8c7a; }
+  .t-cursor {
+    display: inline-block;
+    width: 8px; height: 14px;
+    background: var(--teal);
+    vertical-align: middle;
+    animation: blink 1s step-end infinite;
+    margin-left: 2px;
+  }
+
+  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+  /* ─── SECTION TITLES ─── */
+  .sec-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 0.4rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .sec-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+    max-width: 60px;
+  }
+
+  .sec-title {
+    font-family: var(--sans);
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.02em;
+    margin-bottom: 3rem;
+  }
+
+  .sec-title span { color: var(--teal); }
+
+  /* ─── SKILLS ─── */
+  #skills { padding: 5rem 0; }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .skill-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+    position: relative;
+    transition: all 0.3s;
+    overflow: hidden;
+  }
+
+  .skill-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 2px;
+    background: var(--teal);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+
+  .skill-card:hover::before { transform: scaleX(1); }
+
+  .skill-card:hover {
+    border-color: rgba(14,240,200,0.3);
+    background: rgba(14,240,200,0.04);
+  }
+
+  .skill-icon {
+    font-size: 1.4rem;
+    margin-bottom: 0.75rem;
+    display: block;
+  }
+
+  .skill-card h3 {
+    font-family: var(--sans);
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.75rem;
+  }
+
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .tag {
+    font-size: 0.65rem;
+    color: var(--teal);
+    background: var(--teal-dim);
+    border: 1px solid rgba(14,240,200,0.2);
+    padding: 0.2rem 0.5rem;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+  }
+
+  /* ─── EXPERIENCE ─── */
+  #experience { padding: 5rem 0; }
+
+  .exp-timeline {
+    position: relative;
+    padding-left: 2rem;
+  }
+
+  .exp-timeline::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--teal), transparent);
+  }
+
+  .exp-item {
+    position: relative;
+    margin-bottom: 3rem;
+    padding-left: 1.5rem;
+  }
+
+  .exp-item::before {
+    content: '';
+    position: absolute;
+    left: -2.4rem;
+    top: 0.35rem;
+    width: 8px; height: 8px;
+    background: var(--bg);
+    border: 2px solid var(--teal);
+    border-radius: 50%;
+  }
+
+  .exp-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .exp-role {
+    font-family: var(--sans);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.15rem;
+  }
+
+  .exp-company {
+    font-size: 0.78rem;
+    color: var(--teal);
+    letter-spacing: 0.04em;
+  }
+
+  .exp-date {
+    font-size: 0.68rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+    margin-top: 0.25rem;
+    border: 1px solid var(--border);
+    padding: 0.25rem 0.6rem;
+  }
+
+  .exp-bullets {
+    list-style: none;
+    margin-top: 1rem;
+  }
+
+  .exp-bullets li {
+    position: relative;
+    padding-left: 1.2rem;
+    font-size: 0.78rem;
+    color: rgba(226,234,244,0.65);
+    line-height: 1.8;
+    margin-bottom: 0.4rem;
+  }
+
+  .exp-bullets li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--teal);
+    font-size: 0.7rem;
+    top: 0.05rem;
+  }
+
+  .award-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: rgba(249,202,116,0.1);
+    border: 1px solid rgba(249,202,116,0.3);
+    color: #f9ca74;
+    font-size: 0.68rem;
+    padding: 0.3rem 0.6rem;
+    margin-top: 0.75rem;
+    letter-spacing: 0.05em;
+  }
+
+  /* ─── PROJECTS ─── */
+  #projects { padding: 5rem 0; }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .project-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 1.75rem;
+    position: relative;
+    transition: all 0.3s;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    overflow: hidden;
+  }
+
+  .project-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; right: 0;
+    width: 60px; height: 60px;
+    background: var(--teal-glow);
+    filter: blur(20px);
+    pointer-events: none;
+  }
+
+  .project-card:hover {
+    border-color: rgba(14,240,200,0.35);
+    transform: translateY(-3px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 30px rgba(14,240,200,0.05);
+  }
+
+  .project-num {
+    font-size: 0.65rem;
+    color: var(--teal);
+    letter-spacing: 0.15em;
+    opacity: 0.6;
+  }
+
+  .project-card h3 {
+    font-family: var(--sans);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .project-card p {
+    font-size: 0.76rem;
+    color: var(--muted);
+    line-height: 1.8;
+    flex: 1;
+  }
+
+  .project-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+
+  .project-langs {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+  }
+
+  .project-link {
+    font-size: 0.7rem;
+    color: var(--teal);
+    text-decoration: none;
+    letter-spacing: 0.08em;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+    white-space: nowrap;
+  }
+
+  .project-link:hover { opacity: 1; }
+
+  .wip-badge {
+    font-size: 0.6rem;
+    color: #f9ca74;
+    background: rgba(249,202,116,0.1);
+    border: 1px solid rgba(249,202,116,0.25);
+    padding: 0.2rem 0.5rem;
+    letter-spacing: 0.08em;
+  }
+
+  /* ─── CERTIFICATIONS ─── */
+  #certs { padding: 5rem 0; }
+
+  .certs-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+
+  .cert-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    transition: all 0.25s;
+  }
+
+  .cert-card:hover {
+    border-color: rgba(14,240,200,0.3);
+    background: rgba(14,240,200,0.03);
+  }
+
+  .cert-provider {
+    font-size: 0.62rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .cert-name {
+    font-family: var(--sans);
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.4;
+  }
+
+  .cert-code {
+    font-size: 0.7rem;
+    color: var(--teal);
+    letter-spacing: 0.05em;
+  }
+
+  .cert-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+  }
+
+  .cert-status.earned {
+    color: #27c93f;
+  }
+
+  .cert-status.progress {
+    color: #f9ca74;
+  }
+
+  .cert-status::before {
+    content: '';
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: currentColor;
+    flex-shrink: 0;
+  }
+
+  .cert-status.progress::before {
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+
+  /* ─── CONTACT ─── */
+  #contact {
+    padding: 5rem 0 6rem;
+  }
+
+  .contact-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .contact-info p {
+    font-size: 0.78rem;
+    color: var(--muted);
+    margin-bottom: 2rem;
+    line-height: 1.9;
+  }
+
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.78rem;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border);
+    transition: all 0.2s;
+  }
+
+  .contact-link:hover {
+    border-color: var(--teal);
+    color: var(--teal);
+    background: var(--teal-glow);
+  }
+
+  .contact-link-icon {
+    width: 16px;
+    color: var(--teal);
+    font-size: 0.85rem;
+    flex-shrink: 0;
+  }
+
+  /* FORM */
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .form-group label {
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .form-group input,
+  .form-group textarea {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    padding: 0.75rem 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+    resize: vertical;
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus {
+    border-color: var(--teal);
+    background: rgba(14,240,200,0.02);
+  }
+
+  .form-group textarea { min-height: 120px; }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 1.5rem 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  .footer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .footer-copy {
+    font-size: 0.68rem;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+
+  .footer-stack {
+    font-size: 0.65rem;
+    color: #3d6080;
+  }
+
+  /* STAT ROWS */
+  .stat-row {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .stat {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .stat-num {
+    font-family: var(--sans);
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--teal);
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-top: 0.25rem;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .hero-inner, .contact-inner { grid-template-columns: 1fr; }
+    .skills-grid, .certs-grid { grid-template-columns: repeat(2, 1fr); }
+    .projects-grid { grid-template-columns: 1fr; }
+    .hero-terminal { display: none; }
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { gap: 1rem; }
+  }
+
+  @media (max-width: 600px) {
+    .skills-grid, .certs-grid { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+  }
+
+  /* ANIMATIONS */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#hero">VR<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#certs">Certs</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="container">
+    <div class="hero-inner">
+      <div>
+        <div class="hero-tag">Available for opportunities</div>
+        <h1 class="hero-name">
+          Vinuk<br>
+          <em>Rathnayake</em>
+        </h1>
+        <p class="hero-role">// Database Administrator · Data Engineer · Automation Enthusiast</p>
+        <p class="hero-desc">
+          3+ years managing enterprise MS SQL Server &amp; Oracle environments. Bridging DBA expertise into Data Engineering via Azure &amp; AWS cloud certifications. Building systems that stay up, scale out, and never lose data.
+        </p>
+
+        <div class="stat-row">
+          <div class="stat">
+            <span class="stat-num">99.9%</span>
+            <span class="stat-label">SLA Uptime</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num">3+</span>
+            <span class="stat-label">Industry Experience</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num">10+</span>
+            <span class="stat-label">Live Projects</span>
+          </div>
+        </div>
+
+        <div class="hero-ctas">
+          <a class="btn-primary" href="#contact">Get in touch ↗</a>
+          <a class="btn-outline" href="#projects">View projects</a>
+        </div>
+      </div>
+
+      <!-- TERMINAL -->
+      <div class="hero-terminal">
+        <div class="terminal-bar">
+          <div class="dot dot-r"></div>
+          <div class="dot dot-y"></div>
+          <div class="dot dot-g"></div>
+          <span class="terminal-filename">vinuk.json</span>
+        </div>
+        <div class="terminal-body">
+<span class="t-comment">// profile.json — last updated 2026</span><br>
+<span class="t-arr">{</span><br>
+&nbsp;&nbsp;<span class="t-key">"name"</span>: <span class="t-str">"Vinuk Rathnayake"</span>,<br>
+&nbsp;&nbsp;<span class="t-key">"location"</span>: <span class="t-str">"Colombo, LK"</span>,<br>
+&nbsp;&nbsp;<span class="t-key">"role"</span>: <span class="t-str">"Junior DBA → Data Engineer"</span>,<br>
+&nbsp;&nbsp;<span class="t-key">"experience_yrs"</span>: <span class="t-num">3</span>,<br>
+&nbsp;&nbsp;<span class="t-key">"stack"</span>: [<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="t-str">"MS SQL Server 2016-2022"</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="t-str">"Oracle DB"</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="t-str">"Python"</span>, <span class="t-str">"PowerShell"</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="t-str">"Azure"</span>, <span class="t-str">"AWS"</span><br>
+&nbsp;&nbsp;],<br>
+&nbsp;&nbsp;<span class="t-key">"ha_architecture"</span>: <span class="t-bool">true</span>,<br>
+&nbsp;&nbsp;<span class="t-key">"uptime_sla"</span>: <span class="t-str">"99.9%"</span>,<br>
+&nbsp;&nbsp;<span class="t-key">"award"</span>: <span class="t-str">"US Award 2025"</span>,<br>
+&nbsp;&nbsp;<span class="t-key">"seeking"</span>: <span class="t-str">"Data Eng / Senior DBA"</span><br>
+<span class="t-arr">}</span><span class="t-cursor"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <p class="sec-label">02 · Technical Stack</p>
+    <h2 class="sec-title">Skills &amp; <span>Technologies</span></h2>
+    <div class="skills-grid">
+
+      <div class="skill-card fade-up">
+        <span class="skill-icon">🗄️</span>
+        <h3>Database Administration</h3>
+        <div class="skill-tags">
+          <span class="tag">MS SQL Server 2016–2022</span>
+          <span class="tag">Oracle DB</span>
+          <span class="tag">MySQL</span>
+          <span class="tag">AlwaysOn AG</span>
+          <span class="tag">Query Optimization</span>
+          <span class="tag">Backup & Recovery</span>
+        </div>
+      </div>
+
+      <div class="skill-card fade-up">
+        <span class="skill-icon">☁️</span>
+        <h3>Cloud Platforms</h3>
+        <div class="skill-tags">
+          <span class="tag">Microsoft Azure</span>
+          <span class="tag">AWS</span>
+          <span class="tag">Microsoft 365</span>
+          <span class="tag">Entra ID</span>
+          <span class="tag">Intune</span>
+          <span class="tag">RHEL</span>
+        </div>
+      </div>
+
+      <div class="skill-card fade-up">
+        <span class="skill-icon">⚙️</span>
+        <h3>Automation & Scripting</h3>
+        <div class="skill-tags">
+          <span class="tag">Python</span>
+          <span class="tag">PowerShell</span>
+          <span class="tag">Bash</span>
+          <span class="tag">SQL</span>
+          <span class="tag">Podman</span>
+          <span class="tag">Process Automation</span>
+        </div>
+      </div>
+
+      <div class="skill-card fade-up">
+        <span class="skill-icon">📡</span>
+        <h3>Monitoring & Observability</h3>
+        <div class="skill-tags">
+          <span class="tag">SolarWinds</span>
+          <span class="tag">Nagios</span>
+          <span class="tag">Oracle OEM</span>
+          <span class="tag">Alerting</span>
+          <span class="tag">RCA</span>
+          <span class="tag">Incident Mgmt</span>
+        </div>
+      </div>
+
+      <div class="skill-card fade-up">
+        <span class="skill-icon">🏗️</span>
+        <h3>High Availability & DR</h3>
+        <div class="skill-tags">
+          <span class="tag">AlwaysOn AG</span>
+          <span class="tag">Failover Clustering</span>
+          <span class="tag">Disaster Recovery</span>
+          <span class="tag">Replication</span>
+          <span class="tag">Log Shipping</span>
+        </div>
+      </div>
+
+      <div class="skill-card fade-up">
+        <span class="skill-icon">📋</span>
+        <h3>Frameworks & Methodology</h3>
+        <div class="skill-tags">
+          <span class="tag">ITIL / ITSM</span>
+          <span class="tag">Service Desk Ops</span>
+          <span class="tag">Change Management</span>
+          <span class="tag">SLA Governance</span>
+          <span class="tag">Knowledge Mgmt</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container">
+    <p class="sec-label">03 · Career History</p>
+    <h2 class="sec-title">Work <span>Experience</span></h2>
+
+    <div class="exp-timeline">
+
+      <div class="exp-item fade-up">
+        <div class="exp-header">
+          <div>
+            <div class="exp-role">Junior Database Administrator</div>
+            <div class="exp-company">Cube Networks — Sri Lanka</div>
+          </div>
+          <span class="exp-date">Nov 2024 – Present</span>
+        </div>
+        <ul class="exp-bullets">
+          <li>Led migration from standalone SQL Server to SQL Server 2022 AlwaysOn Availability Groups, improving resilience and failover capability across production workloads</li>
+          <li>Maintained 99.9%+ SLA uptime across mission-critical MSSQL and Oracle databases for multi-client environments</li>
+          <li>Reduced transaction log growth by 50% through backup optimization, workload analysis, and targeted tuning</li>
+          <li>Automated database housekeeping tasks across Oracle and MSSQL using Python and PowerShell scripts</li>
+          <li>Utilized SolarWinds, Nagios, and Oracle OEM for proactive monitoring; conducted RCA to eliminate recurring incidents</li>
+        </ul>
+        <div class="award-badge">⭐ US Award 2025 — Kmart–Target DC Consolidation</div>
+      </div>
+
+      <div class="exp-item fade-up">
+        <div class="exp-header">
+          <div>
+            <div class="exp-role">Cloud Support Engineer</div>
+            <div class="exp-company">The British School in Colombo — Sri Lanka</div>
+          </div>
+          <span class="exp-date">May 2024 – Nov 2024</span>
+        </div>
+        <ul class="exp-bullets">
+          <li>Administered Microsoft 365, Intune, Entra ID, and Google Workspace for 1,400+ students and staff</li>
+          <li>Improved device compliance and identity governance posture by ~40% through structured policy enforcement</li>
+          <li>Reduced account provisioning time by 60% via PowerShell and batch automation scripts</li>
+          <li>Deployed Xibo CMS digital signage platform on RHEL using Podman containers — eliminated manual updates across 5 locations (99% overhead reduction)</li>
+        </ul>
+      </div>
+
+      <div class="exp-item fade-up">
+        <div class="exp-header">
+          <div>
+            <div class="exp-role">Infrastructure Analyst — Oracle DBA</div>
+            <div class="exp-company">HCL Technologies Sri Lanka</div>
+          </div>
+          <span class="exp-date">Mar 2022 – May 2024</span>
+        </div>
+        <ul class="exp-bullets">
+          <li>Administered Oracle production databases within a global managed services model — 99.9%+ availability under strict SLA governance</li>
+          <li>Achieved 95% first-call resolution rate for database incidents and service requests</li>
+          <li>Earned 80%+ quarterly performance ratings in a competitive enterprise evaluation framework</li>
+          <li>Designed a centralized knowledge base improving team troubleshooting efficiency by ~30%</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <p class="sec-label">04 · Portfolio</p>
+    <h2 class="sec-title">Featured <span>Projects</span></h2>
+    <div class="projects-grid">
+
+      <div class="project-card fade-up">
+        <div>
+          <div class="project-num">PROJECT_01</div>
+          <h3>SQL Server HA Migration Toolkit</h3>
+        </div>
+        <p>Scripts and runbooks for migrating standalone SQL Server instances to AlwaysOn Availability Groups. Includes pre-flight checks, failover validation, and rollback procedures.</p>
+        <div class="project-footer">
+          <div class="project-langs">
+            <span class="tag">PowerShell</span>
+            <span class="tag">T-SQL</span>
+            <span class="tag">SQL Server</span>
+          </div>
+          <span class="wip-badge">WIP</span>
+        </div>
+      </div>
+
+      <div class="project-card fade-up">
+        <div>
+          <div class="project-num">PROJECT_02</div>
+          <h3>DB Health Monitor Dashboard</h3>
+        </div>
+        <p>Automated database health reporting dashboard that aggregates metrics from SolarWinds and Oracle OEM, generates HTML reports, and sends proactive alerts via email and Slack.</p>
+        <div class="project-footer">
+          <div class="project-langs">
+            <span class="tag">Python</span>
+            <span class="tag">PowerShell</span>
+            <span class="tag">HTML</span>
+          </div>
+          <a href="https://github.com/vinukrathnayake" class="project-link">→ GitHub</a>
+        </div>
+      </div>
+
+      <div class="project-card fade-up">
+        <div>
+          <div class="project-num">PROJECT_03</div>
+          <h3>Oracle Housekeeping Automation</h3>
+        </div>
+        <p>Python-based automation suite for Oracle DBA routine tasks — archivelog management, schema stats refresh, stale job cleanup, and session audit exports with scheduling via cron.</p>
+        <div class="project-footer">
+          <div class="project-langs">
+            <span class="tag">Python</span>
+            <span class="tag">Oracle</span>
+            <span class="tag">Bash</span>
+          </div>
+          <a href="https://github.com/vinukrathnayake" class="project-link">→ GitHub</a>
+        </div>
+      </div>
+
+      <div class="project-card fade-up">
+        <div>
+          <div class="project-num">PROJECT_04</div>
+          <h3>Azure Data Pipeline (DP-700 Study)</h3>
+        </div>
+        <p>End-to-end Azure data engineering pipeline built as part of DP-700 certification prep — ingests raw data via ADF, transforms in Synapse, and loads to Azure SQL for reporting.</p>
+        <div class="project-footer">
+          <div class="project-langs">
+            <span class="tag">Azure</span>
+            <span class="tag">Synapse</span>
+            <span class="tag">ADF</span>
+            <span class="tag">SQL</span>
+          </div>
+          <span class="wip-badge">WIP</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certs">
+  <div class="container">
+    <p class="sec-label">05 · Credentials</p>
+    <h2 class="sec-title">Certifications &amp; <span>Education</span></h2>
+    <div class="certs-grid">
+
+      <div class="cert-card fade-up">
+        <span class="cert-provider">Amazon Web Services</span>
+        <div class="cert-name">AWS Certified Cloud Practitioner</div>
+        <span class="cert-code">CLF-C01</span>
+        <span class="cert-status earned">Earned</span>
+      </div>
+
+      <div class="cert-card fade-up">
+        <span class="cert-provider">Microsoft Azure</span>
+        <div class="cert-name">Azure Database Administrator Associate</div>
+        <span class="cert-code">DP-300</span>
+        <span class="cert-status progress">In Progress</span>
+      </div>
+
+      <div class="cert-card fade-up">
+        <span class="cert-provider">Microsoft Azure</span>
+        <div class="cert-name">Azure Data Engineer Associate</div>
+        <span class="cert-code">DP-700</span>
+        <span class="cert-status progress">In Progress</span>
+      </div>
+
+      <div class="cert-card fade-up">
+        <span class="cert-provider">Amazon Web Services</span>
+        <div class="cert-name">AWS Database Specialty</div>
+        <span class="cert-code">DBS-C01</span>
+        <span class="cert-status progress">In Progress</span>
+      </div>
+
+      <div class="cert-card fade-up">
+        <span class="cert-provider">Anglia Ruskin University</span>
+        <div class="cert-name">MBA — Fintech &amp; Data Analytics</div>
+        <span class="cert-code">Apr 2026 – Apr 2027</span>
+        <span class="cert-status progress">In Progress</span>
+      </div>
+
+      <div class="cert-card fade-up">
+        <span class="cert-provider">Kingston University</span>
+        <div class="cert-name">BSc (Hons) Computing Science — Network Security</div>
+        <span class="cert-code">Jan 2025 – Jan 2026</span>
+        <span class="cert-status earned">Earned</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <p class="sec-label">06 · Let's Connect</p>
+    <h2 class="sec-title">Get In <span>Touch</span></h2>
+    <div class="contact-inner">
+      <div class="contact-info">
+        <p>Open to Senior DBA, Data Engineering, and cloud database roles. Also happy to discuss collaboration, mentorship, or just talk shop about SQL Server internals.</p>
+        <div class="contact-links">
+          <a class="contact-link" href="mailto:rathnayakevinuk@gmail.com">
+            <span class="contact-link-icon">✉</span>
+            rathnayakevinuk@gmail.com
+          </a>
+          <a class="contact-link" href="https://linkedin.com/in/vinukrathnayake" target="_blank">
+            <span class="contact-link-icon">in</span>
+            linkedin.com/in/vinukrathnayake
+          </a>
+          <a class="contact-link" href="https://github.com/vinukrathnayake" target="_blank">
+            <span class="contact-link-icon">gh</span>
+            github.com/vinukrathnayake
+          </a>
+
+        </div>
+      </div>
+
+      <form class="contact-form" onsubmit="handleSubmit(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Name</label>
+            <input type="text" placeholder="Jane Smith" id="f-name" required>
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" placeholder="jane@company.com" id="f-email" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Subject</label>
+          <input type="text" placeholder="Job opportunity / Collaboration" id="f-subject">
+        </div>
+        <div class="form-group">
+          <label>Message</label>
+          <textarea id="f-msg" placeholder="Tell me about the role or project..."></textarea>
+        </div>
+        <button type="submit" class="btn-primary" style="align-self: flex-start;">Send message ↗</button>
+        <div id="form-msg" style="font-size:0.75rem; color: var(--teal); display:none; margin-top:0.5rem;">
+          ✓ Message sent! I'll get back to you soon.
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <span class="footer-copy">© 2026 Vinuk Rathnayake · Colombo, Sri Lanka</span>
+    
+  </div>
+</footer>
+
+<script>
+  // Intersection Observer for fade-up animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // Active nav link
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(sec => {
+      if (window.scrollY >= sec.offsetTop - 120) current = sec.id;
+    });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current ? 'var(--teal)' : '';
+    });
+  });
+
+  // Form submit
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('button[type="submit"]');
+    btn.textContent = 'Sending...';
+    btn.style.opacity = '0.7';
+    setTimeout(() => {
+      btn.textContent = 'Sent ✓';
+      document.getElementById('form-msg').style.display = 'block';
+    }, 1000);
+  }
+</script>
+
+</body>
+</html>
