@@ -6,23 +6,26 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Vinuk Rathnayake — Database Administrator & Data Engineer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #050d14;
-    --bg2: #0a1628;
-    --bg3: #0f1f35;
-    --teal: #0ef0c8;
-    --teal2: #07c4a0;
-    --teal-dim: rgba(14,240,200,0.12);
-    --teal-glow: rgba(14,240,200,0.06);
-    --navy: #1b2a4a;
-    --text: #e2eaf4;
-    --muted: #6a8aaa;
-    --border: rgba(14,240,200,0.15);
-    --card: rgba(10,22,40,0.8);
+    --bg: #03080f;
+    --bg2: #060f1e;
+    --bg3: #0a1830;
+    --teal: #3b9eff;
+    --teal2: #1a7de8;
+    --teal-dim: rgba(59,158,255,0.12);
+    --teal-glow: rgba(59,158,255,0.06);
+    --navy: #0d1f3c;
+    --text: #d6e8ff;
+    --muted: #5a7fa8;
+    --border: rgba(59,158,255,0.18);
+    --card: rgba(6,15,30,0.85);
+    --accent2: #60c4ff;
+    --accent3: rgba(96,196,255,0.08);
     --mono: 'JetBrains Mono', monospace;
-    --sans: 'Syne', sans-serif;
+    --sans: 'Outfit', sans-serif;
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -38,31 +41,37 @@
     overflow-x: hidden;
   }
 
-  /* GRID OVERLAY */
+  /* DB CIRCUIT GRID OVERLAY */
   body::before {
     content: '';
     position: fixed;
     inset: 0;
     background-image:
-      linear-gradient(rgba(14,240,200,0.025) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(14,240,200,0.025) 1px, transparent 1px);
-    background-size: 60px 60px;
+      linear-gradient(rgba(59,158,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(59,158,255,0.03) 1px, transparent 1px),
+      radial-gradient(ellipse 80% 60% at 50% 0%, rgba(59,158,255,0.07) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 80% 80%, rgba(26,125,232,0.05) 0%, transparent 60%);
+    background-size: 60px 60px, 60px 60px, 100% 100%, 100% 100%;
     pointer-events: none;
     z-index: 0;
   }
 
-  /* SCANLINE EFFECT */
+  /* DATA FLOW NODES — decorative SVG-like background */
   body::after {
     content: '';
     position: fixed;
     inset: 0;
-    background: repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 2px,
-      rgba(0,0,0,0.03) 2px,
-      rgba(0,0,0,0.03) 4px
-    );
+    background:
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0,0,0,0.04) 2px,
+        rgba(0,0,0,0.04) 4px
+      ),
+      radial-gradient(circle 2px at 30px 30px, rgba(59,158,255,0.15) 100%, transparent 100%),
+      radial-gradient(circle 1px at 90px 60px, rgba(96,196,255,0.1) 100%, transparent 100%);
+    background-size: 4px 4px, 120px 120px, 120px 120px;
     pointer-events: none;
     z-index: 0;
   }
@@ -165,11 +174,11 @@
 
   .hero-name {
     font-family: var(--sans);
-    font-size: clamp(2.8rem, 5vw, 4.2rem);
-    font-weight: 800;
-    line-height: 1.05;
-    letter-spacing: -0.03em;
-    margin-bottom: 0.5rem;
+    font-size: clamp(3.2rem, 6vw, 5rem);
+    font-weight: 900;
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.75rem;
     color: var(--text);
   }
 
@@ -254,7 +263,7 @@
     border: 1px solid var(--border);
     border-radius: 4px;
     overflow: hidden;
-    box-shadow: 0 0 60px rgba(14,240,200,0.08);
+    box-shadow: 0 0 80px rgba(59,158,255,0.1), 0 0 30px rgba(26,125,232,0.06);
   }
 
   .terminal-bar {
@@ -284,12 +293,12 @@
     line-height: 2;
   }
 
-  .t-comment { color: #3d6080; }
-  .t-key { color: #7ab8e0; }
+  .t-comment { color: #2c4a6e; }
+  .t-key { color: #60c4ff; }
   .t-str { color: var(--teal); }
   .t-num { color: #f9ca74; }
   .t-arr { color: var(--muted); }
-  .t-bool { color: #ff8c7a; }
+  .t-bool { color: #7eb8ff; }
   .t-cursor {
     display: inline-block;
     width: 8px; height: 14px;
@@ -364,8 +373,8 @@
   .skill-card:hover::before { transform: scaleX(1); }
 
   .skill-card:hover {
-    border-color: rgba(14,240,200,0.3);
-    background: rgba(14,240,200,0.04);
+    border-color: rgba(59,158,255,0.35);
+    background: rgba(59,158,255,0.04);
   }
 
   .skill-icon {
@@ -409,9 +418,10 @@
   .exp-timeline::before {
     content: '';
     position: absolute;
-    left: 0; top: 0; bottom: 0;
+    left: 3px; top: 8px; bottom: 0;
     width: 1px;
-    background: linear-gradient(to bottom, var(--teal), transparent);
+    background: none;
+    border-left: 2px dashed rgba(59,158,255,0.2);
   }
 
   .exp-item {
@@ -423,12 +433,13 @@
   .exp-item::before {
     content: '';
     position: absolute;
-    left: -2.4rem;
-    top: 0.35rem;
+    left: -2.1rem;
+    top: 0.4rem;
     width: 8px; height: 8px;
-    background: var(--bg);
-    border: 2px solid var(--teal);
+    background: var(--teal);
+    border: 2px solid var(--bg);
     border-radius: 50%;
+    box-shadow: 0 0 8px rgba(59,158,255,0.5);
   }
 
   .exp-header {
@@ -505,7 +516,7 @@
 
   .projects-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem;
   }
 
@@ -532,9 +543,9 @@
   }
 
   .project-card:hover {
-    border-color: rgba(14,240,200,0.35);
+    border-color: rgba(59,158,255,0.4);
     transform: translateY(-3px);
-    box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 30px rgba(14,240,200,0.05);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 40px rgba(59,158,255,0.07);
   }
 
   .project-num {
@@ -612,8 +623,8 @@
   }
 
   .cert-card:hover {
-    border-color: rgba(14,240,200,0.3);
-    background: rgba(14,240,200,0.03);
+    border-color: rgba(59,158,255,0.35);
+    background: rgba(59,158,255,0.03);
   }
 
   .cert-provider {
@@ -788,7 +799,7 @@
 
   .footer-stack {
     font-size: 0.65rem;
-    color: #3d6080;
+    color: #1e3a5a;
   }
 
   /* STAT ROWS */
@@ -858,7 +869,7 @@
     display: none;
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(5,13,20,0.97);
+    background: rgba(3,8,15,0.97);
     backdrop-filter: blur(16px);
     z-index: 150;
     flex-direction: column;
@@ -881,11 +892,34 @@
 
   .mobile-menu a:hover { color: var(--teal); }
 
+  .mobile-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 1rem;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.2s;
+  }
+
+  .mobile-close:hover {
+    border-color: var(--teal);
+    color: var(--teal);
+  }
+
   /* ─── RESPONSIVE ─── */
   @media (max-width: 900px) {
     .hero-inner, .contact-inner { grid-template-columns: 1fr; }
     .skills-grid, .certs-grid { grid-template-columns: repeat(2, 1fr); }
-    .projects-grid { grid-template-columns: 1fr; }
+    .projects-grid { grid-template-columns: repeat(2, 1fr); }
     .hero-terminal { display: none; }
     nav { padding: 1rem 1.5rem; }
     .nav-links { gap: 1rem; }
@@ -921,8 +955,6 @@
     .exp-bullets li { font-size: 0.82rem; }
 
     .projects-grid { grid-template-columns: 1fr; gap: 1rem; }
-    .project-card { padding: 1.25rem; }
-    .project-card:hover { transform: none; }
 
     .certs-grid { grid-template-columns: 1fr; gap: 1rem; }
 
@@ -973,6 +1005,7 @@
 
 <!-- MOBILE MENU OVERLAY -->
 <div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" id="mobileClose" aria-label="Close menu">✕</button>
   <a href="#skills" class="mobile-nav-link">Skills</a>
   <a href="#experience" class="mobile-nav-link">Experience</a>
   <a href="#projects" class="mobile-nav-link">Projects</a>
@@ -992,7 +1025,7 @@
         </h1>
         <p class="hero-role">// Database Administrator · Data Engineer · Automation Enthusiast</p>
         <p class="hero-desc">
-          3+ years managing enterprise MS SQL Server &amp; Oracle environments. Bridging DBA expertise into Data Engineering via Azure &amp; AWS cloud certifications. Building systems that stay up, scale out, and never lose data.
+          Managing enterprise MS SQL Server &amp; Oracle environments across multi-client production infrastructures. Bridging DBA expertise into Data Engineering via Azure &amp; AWS cloud certifications. Recognized with the <strong style="color:var(--teal)">US Award 2025</strong> for the Kmart–Target DC Consolidation.
         </p>
 
         <div class="stat-row">
@@ -1001,8 +1034,8 @@
             <span class="stat-label">SLA Uptime</span>
           </div>
           <div class="stat">
-            <span class="stat-num">3+</span>
-            <span class="stat-label">Industry Experience</span>
+            <span class="stat-num" id="exp-years">3+</span>
+            <span class="stat-label">Yrs Experience</span>
           </div>
           <div class="stat">
             <span class="stat-num">10+</span>
@@ -1029,17 +1062,18 @@
 <span class="t-arr">{</span><br>
 &nbsp;&nbsp;<span class="t-key">"name"</span>: <span class="t-str">"Vinuk Rathnayake"</span>,<br>
 &nbsp;&nbsp;<span class="t-key">"location"</span>: <span class="t-str">"Colombo, LK"</span>,<br>
-&nbsp;&nbsp;<span class="t-key">"role"</span>: <span class="t-str">"Junior DBA → Data Engineer"</span>,<br>
+&nbsp;&nbsp;<span class="t-key">"role"</span>: <span class="t-str">"DBA → Data Engineer"</span>,<br>
 &nbsp;&nbsp;<span class="t-key">"experience_yrs"</span>: <span class="t-num">3</span>,<br>
-&nbsp;&nbsp;<span class="t-key">"stack"</span>: [<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="t-str">"MS SQL Server 2016-2022"</span>,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="t-str">"Oracle DB"</span>,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="t-str">"Python"</span>, <span class="t-str">"PowerShell"</span>,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="t-str">"Azure"</span>, <span class="t-str">"AWS"</span><br>
-&nbsp;&nbsp;],<br>
+  &nbsp;&nbsp;<span class="t-key">"stack"</span>: [<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;<span class="t-str">"MS SQL Server 2016-2022"</span>,<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;<span class="t-str">"Oracle 11g-19c"</span>,<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;<span class="t-str">"Python"</span>, <span class="t-str">"PowerShell"</span>,<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;<span class="t-str">"Bash"</span>, <span class="t-str">"Azure"</span>, <span class="t-str">"AWS"</span><br>
+  &nbsp;&nbsp;],<br>
 &nbsp;&nbsp;<span class="t-key">"ha_architecture"</span>: <span class="t-bool">true</span>,<br>
 &nbsp;&nbsp;<span class="t-key">"uptime_sla"</span>: <span class="t-str">"99.9%"</span>,<br>
 &nbsp;&nbsp;<span class="t-key">"award"</span>: <span class="t-str">"US Award 2025"</span>,<br>
+&nbsp;&nbsp;<span class="t-key">"mba"</span>: <span class="t-str">"Fintech &amp; Data Analytics"</span>,<br>
 &nbsp;&nbsp;<span class="t-key">"seeking"</span>: <span class="t-str">"Data Eng / Senior DBA"</span><br>
 <span class="t-arr">}</span><span class="t-cursor"></span>
         </div>
@@ -1060,7 +1094,7 @@
         <h3>Database Administration</h3>
         <div class="skill-tags">
           <span class="tag">MS SQL Server 2016–2022</span>
-          <span class="tag">Oracle DB</span>
+          <span class="tag">Oracle 11g–19c</span>
           <span class="tag">MySQL</span>
           <span class="tag">AlwaysOn AG</span>
           <span class="tag">Query Optimization</span>
@@ -1088,7 +1122,7 @@
           <span class="tag">Python</span>
           <span class="tag">PowerShell</span>
           <span class="tag">Bash</span>
-          <span class="tag">SQL</span>
+          <span class="tag">T-SQL</span>
           <span class="tag">Podman</span>
           <span class="tag">Process Automation</span>
         </div>
@@ -1193,11 +1227,25 @@
         </ul>
       </div>
 
+      <div class="exp-item fade-up">
+        <div class="exp-header">
+          <div>
+            <div class="exp-role">Project Management &amp; IT Infrastructure</div>
+            <div class="exp-company">Audissey Custom AV Solutions — Sri Lanka</div>
+          </div>
+          <span class="exp-date">Dec 2020 – Nov 2021</span>
+        </div>
+        <ul class="exp-bullets">
+          <li>Managed and maintained internal IT systems ensuring uninterrupted business operations across a leading custom AV engineering firm</li>
+          <li>Assisted in installation, configuration, and commissioning of state-of-the-art audiovisual systems for commercial and non-commercial clients</li>
+          <li>Acted as client-facing technical liaison — resolving installation challenges and coordinating project timelines for on-time delivery</li>
+          <li>Reduced recurring technical issues by implementing standardized configuration procedures</li>
+        </ul>
+      </div>
+
     </div>
   </div>
 </section>
-
-<!-- PROJECTS -->
 <section id="projects">
   <div class="container">
     <p class="sec-label">04 · Portfolio</p>
@@ -1207,14 +1255,32 @@
       <div class="project-card fade-up">
         <div>
           <div class="project-num">PROJECT_01</div>
-          <h3>SQL Server HA Migration Toolkit</h3>
+          <h3>Kmart–Target DC Consolidation</h3>
         </div>
-        <p>Scripts and runbooks for migrating standalone SQL Server instances to AlwaysOn Availability Groups. Includes pre-flight checks, failover validation, and rollback procedures.</p>
+        <p>Led critical database migrations as part of a large-scale retail data center consolidation for two major global brands. Leveraged ITIL compliance and critical thinking to ensure data integrity and system availability throughout high-stakes transitions. Recognized with the <strong style="color:var(--teal)">US Award 2025</strong> by Cube Networks for this contribution.</p>
+        <div class="project-footer">
+          <div class="project-langs">
+            <span class="tag">MS SQL Server</span>
+            <span class="tag">ITIL</span>
+            <span class="tag">Data Migration</span>
+            <span class="tag">HA Architecture</span>
+          </div>
+          <span class="wip-badge" style="color:#f9ca74;background:rgba(249,202,116,0.1);border-color:rgba(249,202,116,0.3);">⭐ Awarded</span>
+        </div>
+      </div>
+
+      <div class="project-card fade-up">
+        <div>
+          <div class="project-num">PROJECT_02</div>
+          <h3>SQL Server AlwaysOn HA Migration</h3>
+        </div>
+        <p>Designed and executed migration of application databases from standalone SQL Server environments to SQL Server 2022 Always On Availability Groups. Includes pre-flight validation scripts, failover testing runbooks, and rollback procedures — maintaining 99.9%+ SLA throughout transition.</p>
         <div class="project-footer">
           <div class="project-langs">
             <span class="tag">PowerShell</span>
             <span class="tag">T-SQL</span>
-            <span class="tag">SQL Server</span>
+            <span class="tag">SQL Server 2022</span>
+            <span class="tag">AlwaysOn AG</span>
           </div>
           <span class="wip-badge">WIP</span>
         </div>
@@ -1222,48 +1288,33 @@
 
       <div class="project-card fade-up">
         <div>
-          <div class="project-num">PROJECT_02</div>
-          <h3>DB Health Monitor Dashboard</h3>
+          <div class="project-num">PROJECT_05</div>
+          <h3>Xibo CMS Digital Signage Platform</h3>
         </div>
-        <p>Automated database health reporting dashboard that aggregates metrics from SolarWinds and Oracle OEM, generates HTML reports, and sends proactive alerts via email and Slack.</p>
+        <p>Deployed a centralized digital signage platform on Red Hat Enterprise Linux using containerized Podman services with a MySQL backend. Enabled real-time content broadcasting across 10+ campus displays at The British School in Colombo — eliminating manual updates across 5 campus locations (99% overhead reduction).</p>
         <div class="project-footer">
           <div class="project-langs">
-            <span class="tag">Python</span>
-            <span class="tag">PowerShell</span>
-            <span class="tag">HTML</span>
+            <span class="tag">RHEL</span>
+            <span class="tag">Podman</span>
+            <span class="tag">MySQL</span>
+            <span class="tag">Xibo CMS</span>
           </div>
-          <a href="https://github.com/vinukrathnayake" class="project-link">→ GitHub</a>
+          <span style="font-size:0.68rem;color:var(--muted);letter-spacing:0.05em;">British School Colombo</span>
         </div>
       </div>
 
       <div class="project-card fade-up">
         <div>
-          <div class="project-num">PROJECT_03</div>
-          <h3>Oracle Housekeeping Automation</h3>
+          <div class="project-num">PROJECT_06</div>
+          <h3>Azure Data Pipeline — DP-700 Study</h3>
         </div>
-        <p>Python-based automation suite for Oracle DBA routine tasks — archivelog management, schema stats refresh, stale job cleanup, and session audit exports with scheduling via cron.</p>
+        <p>End-to-end Azure data engineering pipeline built as part of DP-700 certification preparation. Ingests raw data via Azure Data Factory, applies transformations in Azure Synapse Analytics, and loads to Azure SQL for downstream reporting. Mirrors real-world enterprise data engineering patterns.</p>
         <div class="project-footer">
           <div class="project-langs">
-            <span class="tag">Python</span>
-            <span class="tag">Oracle</span>
-            <span class="tag">Bash</span>
-          </div>
-          <a href="https://github.com/vinukrathnayake" class="project-link">→ GitHub</a>
-        </div>
-      </div>
-
-      <div class="project-card fade-up">
-        <div>
-          <div class="project-num">PROJECT_04</div>
-          <h3>Azure Data Pipeline (DP-700 Study)</h3>
-        </div>
-        <p>End-to-end Azure data engineering pipeline built as part of DP-700 certification prep — ingests raw data via ADF, transforms in Synapse, and loads to Azure SQL for reporting.</p>
-        <div class="project-footer">
-          <div class="project-langs">
-            <span class="tag">Azure</span>
+            <span class="tag">Azure Data Factory</span>
             <span class="tag">Synapse</span>
-            <span class="tag">ADF</span>
-            <span class="tag">SQL</span>
+            <span class="tag">Azure SQL</span>
+            <span class="tag">Python</span>
           </div>
           <span class="wip-badge">WIP</span>
         </div>
@@ -1288,6 +1339,27 @@
       </div>
 
       <div class="cert-card fade-up">
+        <span class="cert-provider">Kingston University</span>
+        <div class="cert-name">BSc (Hons) Computing Science — Network Security</div>
+        <span class="cert-code">Jan 2025 – Jan 2026</span>
+        <span class="cert-status earned">Earned</span>
+      </div>
+
+      <div class="cert-card fade-up">
+        <span class="cert-provider">Cardiff Metropolitan University</span>
+        <div class="cert-name">Higher National Diploma — Network Technology & Cyber Security</div>
+        <span class="cert-code">Sep 2022 – Sep 2024</span>
+        <span class="cert-status earned">Earned</span>
+      </div>
+
+      <div class="cert-card fade-up">
+        <span class="cert-provider">Anglia Ruskin University</span>
+        <div class="cert-name">MBA — Fintech &amp; Data Analytics</div>
+        <span class="cert-code">Apr 2026 – Apr 2027</span>
+        <span class="cert-status progress">In Progress</span>
+      </div>
+
+      <div class="cert-card fade-up">
         <span class="cert-provider">Microsoft Azure</span>
         <div class="cert-name">Azure Database Administrator Associate</div>
         <span class="cert-code">DP-300</span>
@@ -1306,20 +1378,6 @@
         <div class="cert-name">AWS Database Specialty</div>
         <span class="cert-code">DBS-C01</span>
         <span class="cert-status progress">In Progress</span>
-      </div>
-
-      <div class="cert-card fade-up">
-        <span class="cert-provider">Anglia Ruskin University</span>
-        <div class="cert-name">MBA — Fintech &amp; Data Analytics</div>
-        <span class="cert-code">Apr 2026 – Apr 2027</span>
-        <span class="cert-status progress">In Progress</span>
-      </div>
-
-      <div class="cert-card fade-up">
-        <span class="cert-provider">Kingston University</span>
-        <div class="cert-name">BSc (Hons) Computing Science — Network Security</div>
-        <span class="cert-code">Jan 2025 – Jan 2026</span>
-        <span class="cert-status earned">Earned</span>
       </div>
 
     </div>
@@ -1389,6 +1447,15 @@
 </footer>
 
 <script>
+  // Dynamic years of experience — career start: March 2022
+  (function() {
+    const start = new Date(2022, 2, 1); // March 2022
+    const now = new Date();
+    const years = Math.floor((now - start) / (1000 * 60 * 60 * 24 * 365.25));
+    const el = document.getElementById('exp-years');
+    if (el) el.textContent = years + '+';
+  })();
+
   // Intersection Observer for fade-up animations
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry, i) => {
@@ -1418,19 +1485,28 @@
   // Hamburger menu
   const menuToggle = document.getElementById('menuToggle');
   const mobileMenu = document.getElementById('mobileMenu');
+  const mobileClose = document.getElementById('mobileClose');
+
+  function openMenu() {
+    menuToggle.classList.add('open');
+    mobileMenu.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeMenu() {
+    menuToggle.classList.remove('open');
+    mobileMenu.classList.remove('open');
+    document.body.style.overflow = '';
+  }
 
   menuToggle.addEventListener('click', () => {
-    menuToggle.classList.toggle('open');
-    mobileMenu.classList.toggle('open');
-    document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+    mobileMenu.classList.contains('open') ? closeMenu() : openMenu();
   });
 
+  mobileClose.addEventListener('click', closeMenu);
+
   document.querySelectorAll('.mobile-nav-link').forEach(link => {
-    link.addEventListener('click', () => {
-      menuToggle.classList.remove('open');
-      mobileMenu.classList.remove('open');
-      document.body.style.overflow = '';
-    });
+    link.addEventListener('click', closeMenu);
   });
 
   // Form submit
